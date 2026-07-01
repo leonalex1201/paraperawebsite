@@ -3,100 +3,82 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title id="pageTitle">PARA PERA — Past Event</title>
-<meta name="description" id="pageDesc" content="PARA PERA past event.">
+<title id="pgTitle">PARA PERA — Past Event</title>
+<meta name="description" id="pgDesc" content="PARA PERA past event.">
 <meta name="theme-color" content="#050505">
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<header class="site-nav">
+<header class="site-nav glass-card" style="border-radius:0; border-left:none; border-right:none; border-top:none;">
   <div class="nav-inner">
-    <a href="index.html" class="nav-logo">
-      <img src="logo.png" alt="PARA PERA">
-    </a>
+    <a href="index.html" class="nav-logo"><img src="logo.png" alt="PARA PERA"></a>
     <a href="index.html" class="back-link">← Back</a>
   </div>
 </header>
 
 <main class="section" style="padding-top:140px;">
   <div class="section-inner" style="max-width:1024px;">
-    <div class="glass-card event-card" id="eventCard">
-      <!-- γεμίζει δυναμικά -->
-    </div>
+    <div class="glass-card detail-card" id="content"></div>
   </div>
 </main>
 
 <div class="lightbox" id="lightbox">
-  <span class="lightbox-close" id="lightboxClose">&times;</span>
-  <img id="lightboxImg" src="" alt="">
+  <span class="lightbox-close" id="lbClose">&times;</span>
+  <img id="lbImg" src="" alt="">
 </div>
 
 <script src="events.js"></script>
 <script>
-  const params = new URLSearchParams(location.search);
-  const slug = params.get('event');
-  const event = getEventBySlug(slug);
-  const card = document.getElementById('eventCard');
+const params = new URLSearchParams(location.search);
+const event  = getEventBySlug(params.get('event'));
+const box    = document.getElementById('content');
 
-  if(!event){
-    card.innerHTML = `
-      <p class="muted">Δεν βρέθηκε αυτό το event.</p>
-      <p style="margin-top:12px;"><a href="index.html" class="back-link">← Πίσω στην αρχική</a></p>
-    `;
-  } else {
-    document.getElementById('pageTitle').textContent = `PARA PERA — ${event.label}`;
-    document.getElementById('pageDesc').setAttribute('content', `${event.name} — ${event.date}`);
+if(!event){
+  box.innerHTML = `<p class="muted">Δεν βρέθηκε αυτό το event.</p>
+    <p style="margin-top:12px"><a href="index.html" class="back-link">← Πίσω</a></p>`;
+} else {
+  document.getElementById('pgTitle').textContent = `PARA PERA — ${event.label}`;
+  document.getElementById('pgDesc').content = `${event.name} — ${event.date}`;
 
-    const photos = getPhotoUrls(event);
+  const rows = [
+    ['Date',     event.date],
+    event.time   ? ['Time',     event.time]   : null,
+    event.lineup ? ['DJ Lineup',event.lineup] : null,
+    event.guest  ? ['Guest DJ', event.guest]  : null,
+    event.sponsor? ['Sponsor',  event.sponsor]: null,
+  ].filter(Boolean);
 
-    const detailRows = [
-      ['Date', event.date],
-      event.time ? ['Time', event.time] : null,
-      event.lineup ? ['DJ Lineup', event.lineup] : null,
-      event.guest ? ['Guest DJ', event.guest] : null,
-      event.sponsor ? ['Sponsor', event.sponsor] : null,
-    ].filter(Boolean);
+  const photos = getPhotoUrls(event);
 
-    card.innerHTML = `
-      <p class="event-tagline">${event.label}</p>
-      <h1 class="event-name font-display">${event.name}</h1>
-      <dl class="event-details" style="max-width:420px;">
-        ${detailRows.map(([label, value]) => `
-          <div class="event-row"><dt>${label}</dt><dd>${value}</dd></div>
-        `).join('')}
-      </dl>
-      ${photos.length > 0 ? `
-        <div class="event-photos">
-          ${photos.map(src => `
-            <a href="${src}" class="event-photo" data-lightbox>
-              <img src="${src}" alt="${event.name}" loading="lazy">
-            </a>
-          `).join('')}
-        </div>
-      ` : `
-        <p class="muted" style="margin-top:40px;">Δεν υπάρχουν ακόμα φωτογραφίες για αυτό το event.</p>
-      `}
-    `;
+  box.innerHTML = `
+    <p class="detail-eyebrow">${event.label}</p>
+    <h1 class="detail-title font-display">${event.name}</h1>
+    <dl class="detail-dl">
+      ${rows.map(([l,v])=>`<div class="detail-row"><dt>${l}</dt><dd>${v}</dd></div>`).join('')}
+    </dl>
+    ${photos.length ? `
+      <div class="photo-grid">
+        ${photos.map(src=>`
+          <div class="photo-item" data-src="${src}">
+            <img src="${src}" alt="${event.name}" loading="lazy">
+          </div>`).join('')}
+      </div>` :
+      `<p class="muted">Φωτογραφίες σύντομα.</p>`}
+  `;
 
-    /* lightbox: κλικ σε φωτό ανοίγει μεγέθυνση αντί να πλοηγηθεί στο αρχείο εικόνας */
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightboxImg');
-    document.querySelectorAll('[data-lightbox]').forEach(a=>{
-      a.addEventListener('click', (e)=>{
-        e.preventDefault();
-        lightboxImg.src = a.getAttribute('href');
-        lightbox.classList.add('active');
-      });
-    });
-    document.getElementById('lightboxClose').addEventListener('click', ()=> lightbox.classList.remove('active'));
-    lightbox.addEventListener('click', (e)=>{ if(e.target === lightbox) lightbox.classList.remove('active'); });
-  }
+  /* lightbox */
+  const lb    = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lbImg');
+  document.querySelectorAll('.photo-item').forEach(el => {
+    el.addEventListener('click', ()=>{ lbImg.src = el.dataset.src; lb.classList.add('active'); });
+  });
+  document.getElementById('lbClose').addEventListener('click', ()=> lb.classList.remove('active'));
+  lb.addEventListener('click', e => { if(e.target===lb) lb.classList.remove('active'); });
+}
 </script>
-
 </body>
 </html>

@@ -3,47 +3,50 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>PARA PERA</title>
+<title>PARA PERA — We Don't Throw Parties. We Create Memories.</title>
 <meta name="description" content="Underground luxury nightclub events. Explore the next event, photo gallery, and follow PARA PERA.">
-<meta name="theme-color" content="#050505">
-<meta property="og:title" content="PARA PERA — We Create Memories">
+<meta property="og:title"       content="PARA PERA — We Create Memories">
 <meta property="og:description" content="Underground luxury nightclub events. Neon nights, unforgettable memories.">
-<meta property="og:type" content="website">
-<meta name="twitter:card" content="summary_large_image">
-
+<meta property="og:type"        content="website">
+<meta name="theme-color"        content="#050505">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<!--  NAV  -->
-<header class="site-nav">
+<!-- ═══ NAV ═══════════════════════════════════════════════ -->
+<header class="site-nav glass-card" style="border-radius:0; border-left:none; border-right:none; border-top:none;">
   <div class="nav-inner">
-    <a href="#home" class="nav-logo">
-      <img src="logo.png" alt="PARA PERA">
-    </a>
+    <a href="#home" class="nav-logo"><img src="logo.png" alt="PARA PERA"></a>
+
     <nav class="nav-links">
       <a href="#home" class="nav-link">Home</a>
       <a href="#next" class="nav-link">Next</a>
+
       <div class="nav-past" id="navPast">
         <button class="nav-past-trigger" id="navPastTrigger">
           Past <span class="chev">›</span>
         </button>
         <div class="glass-card nav-past-menu" id="navPastMenu"></div>
       </div>
+
+      <a href="#sponsorships" class="nav-link">Sponsorships</a>
     </nav>
+
     <button class="nav-mobile-btn" id="mobileBtn">Menu</button>
   </div>
+
   <div class="glass-card nav-mobile-menu" id="mobileMenu">
-    <a href="#home" class="nav-link">Home</a>
-    <a href="#next" class="nav-link">Next</a>
+    <a href="#home"          class="nav-link" onclick="closeMobile()">Home</a>
+    <a href="#next"          class="nav-link" onclick="closeMobile()">Next</a>
     <div id="mobilePastList"></div>
+    <a href="#sponsorships"  class="nav-link" onclick="closeMobile()">Sponsorships</a>
   </div>
 </header>
 
-<!-- ============ HERO ============ -->
+<!-- ═══ HERO ═══════════════════════════════════════════════ -->
 <section class="hero" id="home">
   <div class="hero-purple-bg"></div>
   <video class="hero-video" autoplay muted loop playsinline poster="hero-bg.jpg">
@@ -56,37 +59,37 @@
   </div>
 </section>
 
-<!-- ============ NEXT EVENT ============ -->
+<!-- ═══ NEXT EVENT ═════════════════════════════════════════ -->
 <section class="section" id="next">
   <div class="section-inner">
     <h2 class="section-title font-display">Next Event</h2>
 
-    <div class="glass-card event-card-lg">
-      <div class="event-grid-lg">
+    <div class="glass-card event-card">
+      <div class="event-grid">
 
-        <div class="poster-wrap-lg">
+        <div class="poster-wrap">
           <div class="poster-glow"></div>
           <img id="nextPoster" src="" alt="Event poster">
         </div>
 
-        <div class="event-info-lg">
-          <p id="nextTagline" class="event-tagline-lg"></p>
-          <h3 id="nextName" class="event-name-lg font-display"></h3>
+        <div class="event-info">
+          <p  id="nextTagline" class="event-eyebrow"></p>
+          <h3 id="nextName"    class="event-title font-display"></h3>
 
-          <dl class="event-details-lg">
-            <div class="event-row-lg"><dt>Date</dt><dd id="nextDate"></dd></div>
-            <div class="event-row-lg"><dt>Time</dt><dd id="nextTime"></dd></div>
-            <div class="event-row-lg"><dt>Venue</dt><dd id="nextVenue"></dd></div>
-            <div class="event-row-lg"><dt>Address</dt><dd id="nextAddress"></dd></div>
-            <div class="event-row-lg"><dt>On Deck</dt><dd id="nextOnDeck"></dd></div>
-            <div class="event-row-lg"><dt>Sponsor</dt><dd id="nextSponsor"></dd></div>
+          <dl class="event-dl">
+            <div class="event-row"><dt>Date</dt>    <dd id="nDate"></dd></div>
+            <div class="event-row"><dt>Time</dt>    <dd id="nTime"></dd></div>
+            <div class="event-row"><dt>Venue</dt>   <dd id="nVenue"></dd></div>
+            <div class="event-row"><dt>Address</dt> <dd id="nAddress"></dd></div>
+            <div class="event-row"><dt>On Deck</dt> <dd id="nOnDeck"></dd></div>
+            <div class="event-row"><dt>Sponsor</dt> <dd id="nSponsor"></dd></div>
           </dl>
 
-          <div class="countdown-lg" id="countdown">
-            <div class="countdown-unit-lg"><span class="countdown-num-lg" id="cdD">--</span><span class="countdown-label-lg">Days</span></div>
-            <div class="countdown-unit-lg"><span class="countdown-num-lg" id="cdH">--</span><span class="countdown-label-lg">Hours</span></div>
-            <div class="countdown-unit-lg"><span class="countdown-num-lg" id="cdM">--</span><span class="countdown-label-lg">Minutes</span></div>
-            <div class="countdown-unit-lg"><span class="countdown-num-lg" id="cdS">--</span><span class="countdown-label-lg">Seconds</span></div>
+          <div class="countdown">
+            <div class="cd-unit"><span class="cd-num" id="cdD">--</span><span class="cd-label">Days</span></div>
+            <div class="cd-unit"><span class="cd-num" id="cdH">--</span><span class="cd-label">Hours</span></div>
+            <div class="cd-unit"><span class="cd-num" id="cdM">--</span><span class="cd-label">Mins</span></div>
+            <div class="cd-unit"><span class="cd-num" id="cdS">--</span><span class="cd-label">Secs</span></div>
           </div>
         </div>
 
@@ -95,116 +98,163 @@
   </div>
 </section>
 
-<!-- ============ PAST EVENTS ============ -->
+<!-- ═══ PAST EVENTS ════════════════════════════════════════ -->
 <section class="section" id="past">
   <div class="section-inner">
     <h2 class="section-title font-display">Past Events</h2>
-    <div class="past-grid" id="pastGrid"></div>
+    <div id="pastGrid"></div>
   </div>
 </section>
 
-<!-- ============ FOOTER ============ -->
+<!-- ═══ SPONSORSHIPS ═══════════════════════════════════════ -->
+<section class="section" id="sponsorships">
+  <div class="section-inner">
+    <h2 class="section-title font-display">Sponsorships</h2>
+    <p class="section-sub muted">Οι άνθρωποι που κάνουν τις νύχτες μας εφικτές.</p>
+
+    <div class="sponsors-row">
+
+      <!-- PARA PERA -->
+      <div class="glass-card sponsor-card">
+        <div class="sponsor-header">
+          <img src="logo.png" alt="PARA PERA" class="sponsor-logo-img">
+          <div>
+            <div class="sponsor-name font-display">PARA PERA</div>
+            <div class="sponsor-role">Διοργανωτής</div>
+          </div>
+        </div>
+        <div class="sponsor-links">
+          <a href="https://www.instagram.com/paraperaproject/" target="_blank" rel="noopener" class="sponsor-link">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c2.717 0 3.056.01 4.122.06 1.065.05 1.79.217 2.428.465.66.254 1.216.598 1.772 1.153.509.5.902 1.105 1.153 1.772.247.637.415 1.363.465 2.428.047 1.066.06 1.405.06 4.122 0 2.717-.01 3.056-.06 4.122-.05 1.065-.218 1.79-.465 2.428a4.883 4.883 0 0 1-1.153 1.772c-.5.508-1.104.902-1.772 1.153-.637.247-1.363.415-2.428.465-1.066.047-1.405.06-4.122.06-2.717 0-3.056-.01-4.122-.06-1.065-.05-1.79-.218-2.428-.465a4.89 4.89 0 0 1-1.772-1.153 4.904 4.904 0 0 1-1.153-1.772c-.248-.637-.415-1.363-.465-2.428C2.013 15.056 2 14.717 2 12c0-2.717.01-3.056.06-4.122.05-1.066.217-1.79.465-2.428a4.88 4.88 0 0 1 1.153-1.772A4.897 4.897 0 0 1 5.45 2.525c.638-.248 1.362-.415 2.428-.465C8.944 2.013 9.283 2 12 2zm0 1.802c-2.67 0-2.987.01-4.04.059-.976.045-1.505.207-1.858.344-.466.181-.8.398-1.15.748-.35.35-.566.683-.747 1.15-.137.353-.3.882-.344 1.857-.05 1.053-.06 1.37-.06 4.04 0 2.67.01 2.987.06 4.04.045.976.207 1.505.344 1.858.181.466.397.8.747 1.15.35.35.684.566 1.15.747.353.137.882.3 1.858.344 1.052.05 1.369.06 4.04.06 2.67 0 2.987-.01 4.04-.06.976-.045 1.505-.207 1.857-.344.467-.181.8-.398 1.15-.748.35-.35.566-.683.747-1.15.137-.352.3-.881.344-1.857.05-1.053.06-1.37.06-4.04 0-2.67-.01-2.987-.06-4.04-.045-.976-.207-1.504-.344-1.857a3.097 3.097 0 0 0-.747-1.15 3.098 3.098 0 0 0-1.15-.748c-.352-.137-.881-.3-1.857-.344-1.053-.05-1.37-.06-4.04-.06zm0 3.064a5.135 5.135 0 1 1 0 10.27 5.135 5.135 0 0 1 0-10.27zm0 8.468a3.333 3.333 0 1 0 0-6.666 3.333 3.333 0 0 0 0 6.666zm6.538-8.671a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0z"/></svg>
+            <span>@paraperaproject</span>
+          </a>
+          <a href="#" class="sponsor-link">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5.8 20.1a6.34 6.34 0 0 0 10.86-4.43V8.66a8.16 8.16 0 0 0 4.77 1.52V6.7a4.85 4.85 0 0 1-1.84-.01Z"/></svg>
+            <span>@parapera</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- MOLOKO -->
+      <div class="glass-card sponsor-card">
+        <div class="sponsor-header">
+          <div class="sponsor-logo-m">M</div>
+          <div>
+            <div class="sponsor-name font-display">Moloko</div>
+            <div class="sponsor-role">Official Sponsor</div>
+          </div>
+        </div>
+        <div class="sponsor-links">
+          <a href="https://www.instagram.com/molokogreece/" target="_blank" rel="noopener" class="sponsor-link">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c2.717 0 3.056.01 4.122.06 1.065.05 1.79.217 2.428.465.66.254 1.216.598 1.772 1.153.509.5.902 1.105 1.153 1.772.247.637.415 1.363.465 2.428.047 1.066.06 1.405.06 4.122 0 2.717-.01 3.056-.06 4.122-.05 1.065-.218 1.79-.465 2.428a4.883 4.883 0 0 1-1.153 1.772c-.5.508-1.104.902-1.772 1.153-.637.247-1.363.415-2.428.465-1.066.047-1.405.06-4.122.06-2.717 0-3.056-.01-4.122-.06-1.065-.05-1.79-.218-2.428-.465a4.89 4.89 0 0 1-1.772-1.153 4.904 4.904 0 0 1-1.153-1.772c-.248-.637-.415-1.363-.465-2.428C2.013 15.056 2 14.717 2 12c0-2.717.01-3.056.06-4.122.05-1.066.217-1.79.465-2.428a4.88 4.88 0 0 1 1.153-1.772A4.897 4.897 0 0 1 5.45 2.525c.638-.248 1.362-.415 2.428-.465C8.944 2.013 9.283 2 12 2zm0 1.802c-2.67 0-2.987.01-4.04.059-.976.045-1.505.207-1.858.344-.466.181-.8.398-1.15.748-.35.35-.566.683-.747 1.15-.137.353-.3.882-.344 1.857-.05 1.053-.06 1.37-.06 4.04 0 2.67.01 2.987.06 4.04.045.976.207 1.505.344 1.858.181.466.397.8.747 1.15.35.35.684.566 1.15.747.353.137.882.3 1.858.344 1.052.05 1.369.06 4.04.06 2.67 0 2.987-.01 4.04-.06.976-.045 1.505-.207 1.857-.344.467-.181.8-.398 1.15-.748.35-.35.566-.683.747-1.15.137-.352.3-.881.344-1.857.05-1.053.06-1.37.06-4.04 0-2.67-.01-2.987-.06-4.04-.045-.976-.207-1.504-.344-1.857a3.097 3.097 0 0 0-.747-1.15 3.098 3.098 0 0 0-1.15-.748c-.352-.137-.881-.3-1.857-.344-1.053-.05-1.37-.06-4.04-.06zm0 3.064a5.135 5.135 0 1 1 0 10.27 5.135 5.135 0 0 1 0-10.27zm0 8.468a3.333 3.333 0 1 0 0-6.666 3.333 3.333 0 0 0 0 6.666zm6.538-8.671a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0z"/></svg>
+            <span>@molokogreece</span>
+          </a>
+          <a href="https://www.tiktok.com/@moloko.greece" target="_blank" rel="noopener" class="sponsor-link">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5.8 20.1a6.34 6.34 0 0 0 10.86-4.43V8.66a8.16 8.16 0 0 0 4.77 1.52V6.7a4.85 4.85 0 0 1-1.84-.01Z"/></svg>
+            <span>@moloko.greece</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ══════════════════════════════════════════════ -->
 <footer class="site-footer">
   <div class="footer-inner">
     <a href="#home" class="footer-logo"><img src="logo.png" alt="PARA PERA"></a>
     <div class="footer-social">
-      <a href="https://www.instagram.com/paraperaproject/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+      <a href="https://www.instagram.com/paraperaproject/" target="_blank" rel="noopener" aria-label="Instagram">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c2.717 0 3.056.01 4.122.06 1.065.05 1.79.217 2.428.465.66.254 1.216.598 1.772 1.153.509.5.902 1.105 1.153 1.772.247.637.415 1.363.465 2.428.047 1.066.06 1.405.06 4.122 0 2.717-.01 3.056-.06 4.122-.05 1.065-.218 1.79-.465 2.428a4.883 4.883 0 0 1-1.153 1.772c-.5.508-1.104.902-1.772 1.153-.637.247-1.363.415-2.428.465-1.066.047-1.405.06-4.122.06-2.717 0-3.056-.01-4.122-.06-1.065-.05-1.79-.218-2.428-.465a4.89 4.89 0 0 1-1.772-1.153 4.904 4.904 0 0 1-1.153-1.772c-.248-.637-.415-1.363-.465-2.428C2.013 15.056 2 14.717 2 12c0-2.717.01-3.056.06-4.122.05-1.066.217-1.79.465-2.428a4.88 4.88 0 0 1 1.153-1.772A4.897 4.897 0 0 1 5.45 2.525c.638-.248 1.362-.415 2.428-.465C8.944 2.013 9.283 2 12 2zm0 1.802c-2.67 0-2.987.01-4.04.059-.976.045-1.505.207-1.858.344-.466.181-.8.398-1.15.748-.35.35-.566.683-.747 1.15-.137.353-.3.882-.344 1.857-.05 1.053-.06 1.37-.06 4.04 0 2.67.01 2.987.06 4.04.045.976.207 1.505.344 1.858.181.466.397.8.747 1.15.35.35.684.566 1.15.747.353.137.882.3 1.858.344 1.052.05 1.369.06 4.04.06 2.67 0 2.987-.01 4.04-.06.976-.045 1.505-.207 1.857-.344.467-.181.8-.398 1.15-.748.35-.35.566-.683.747-1.15.137-.352.3-.881.344-1.857.05-1.053.06-1.37.06-4.04 0-2.67-.01-2.987-.06-4.04-.045-.976-.207-1.504-.344-1.857a3.097 3.097 0 0 0-.747-1.15 3.098 3.098 0 0 0-1.15-.748c-.352-.137-.881-.3-1.857-.344-1.053-.05-1.37-.06-4.04-.06zm0 3.064a5.135 5.135 0 1 1 0 10.27 5.135 5.135 0 0 1 0-10.27zm0 8.468a3.333 3.333 0 1 0 0-6.666 3.333 3.333 0 0 0 0 6.666zm6.538-8.671a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0z"/></svg>
       </a>
-      <a href="#" aria-label="TikTok">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5.8 20.1a6.34 6.34 0 0 0 10.86-4.43V8.66a8.16 8.16 0 0 0 4.77 1.52V6.7a4.85 4.85 0 0 1-1.84-.01Z"/></svg>
-      </a>
     </div>
-    <p class="footer-copy">© <span id="year"></span> PARA PERA</p>
+    <p class="footer-copy">© <span id="yr"></span> PARA PERA</p>
   </div>
 </footer>
 
-<!-- ============ LIGHTBOX (shared) ============ -->
 <div class="lightbox" id="lightbox">
-  <span class="lightbox-close" id="lightboxClose">&times;</span>
-  <img id="lightboxImg" src="" alt="">
+  <span class="lightbox-close" id="lbClose">&times;</span>
+  <img id="lbImg" src="" alt="">
 </div>
 
 <script src="events.js"></script>
 <script>
-  document.getElementById('year').textContent = new Date().getFullYear();
+/* ── init ── */
+document.getElementById('yr').textContent = new Date().getFullYear();
 
-  /* ---------- NEXT EVENT ---------- */
-  document.getElementById('nextPoster').src = NEXT_EVENT.poster;
-  document.getElementById('nextTagline').textContent = NEXT_EVENT.tagline;
-  document.getElementById('nextName').textContent = NEXT_EVENT.name;
-  document.getElementById('nextDate').textContent = NEXT_EVENT.date;
-  document.getElementById('nextTime').textContent = NEXT_EVENT.time;
-  document.getElementById('nextOnDeck').textContent = NEXT_EVENT.onDeck.join(' · ');
-  document.getElementById('nextVenue').textContent = NEXT_EVENT.venue || '';
-  document.getElementById('nextAddress').textContent = NEXT_EVENT.address || '';
-  document.getElementById('nextSponsor').textContent = NEXT_EVENT.sponsor;
+/* ── Next Event ── */
+const N = NEXT_EVENT;
+document.getElementById('nextPoster').src = N.poster;
+document.getElementById('nextTagline').textContent = N.tagline;
+document.getElementById('nextName').textContent    = N.name;
+document.getElementById('nDate').textContent       = N.date;
+document.getElementById('nTime').textContent       = N.time;
+document.getElementById('nVenue').textContent      = N.venue    || '';
+document.getElementById('nAddress').textContent    = N.address  || '';
+document.getElementById('nOnDeck').textContent     = N.onDeck.join(' · ');
+document.getElementById('nSponsor').textContent    = N.sponsor;
 
-  function updateCountdown(){
-    const target = new Date(NEXT_EVENT.iso).getTime();
-    const diff = Math.max(0, target - Date.now());
-    document.getElementById('cdD').textContent = String(Math.floor(diff/86400000)).padStart(2,'0');
-    document.getElementById('cdH').textContent = String(Math.floor((diff/3600000)%24)).padStart(2,'0');
-    document.getElementById('cdM').textContent = String(Math.floor((diff/60000)%60)).padStart(2,'0');
-    document.getElementById('cdS').textContent = String(Math.floor((diff/1000)%60)).padStart(2,'0');
+function tick(){
+  const d = Math.max(0, new Date(N.iso) - Date.now());
+  document.getElementById('cdD').textContent = String(Math.floor(d/864e5)).padStart(2,'0');
+  document.getElementById('cdH').textContent = String(Math.floor(d/36e5)%24).padStart(2,'0');
+  document.getElementById('cdM').textContent = String(Math.floor(d/6e4)%60).padStart(2,'0');
+  document.getElementById('cdS').textContent = String(Math.floor(d/1e3)%60).padStart(2,'0');
+}
+tick(); setInterval(tick, 1000);
+
+/* ── Nav: Past dropdown ── */
+const trigger = document.getElementById('navPastTrigger');
+const menu    = document.getElementById('navPastMenu');
+menu.innerHTML = PAST_EVENTS.map(e =>
+  `<a href="past.html?event=${e.slug}">${e.label}</a>`).join('');
+trigger.addEventListener('click', ()=>{
+  trigger.classList.toggle('open');
+  menu.classList.toggle('open');
+});
+document.addEventListener('click', e => {
+  if(!document.getElementById('navPast').contains(e.target)){
+    trigger.classList.remove('open');
+    menu.classList.remove('open');
   }
-  updateCountdown();
-  setInterval(updateCountdown, 1000);
+});
 
-  /* ---------- NAV: past dropdown (desktop) ---------- */
-  const navPastTrigger = document.getElementById('navPastTrigger');
-  const navPastMenu = document.getElementById('navPastMenu');
-  navPastMenu.innerHTML = PAST_EVENTS.map(e =>
-    `<a href="past.html?event=${e.slug}">${e.label}</a>`
-  ).join('');
+/* ── Nav: mobile ── */
+const mBtn  = document.getElementById('mobileBtn');
+const mMenu = document.getElementById('mobileMenu');
+document.getElementById('mobilePastList').innerHTML =
+  '<div style="display:flex;flex-direction:column;gap:10px;margin-top:6px;">' +
+  PAST_EVENTS.map(e=>`<a href="past.html?event=${e.slug}" class="nav-link">${e.label}</a>`).join('') +
+  '</div>';
+mBtn.addEventListener('click', ()=>{
+  const o = mMenu.classList.toggle('open');
+  mBtn.textContent = o ? 'Close' : 'Menu';
+});
+function closeMobile(){
+  mMenu.classList.remove('open');
+  mBtn.textContent = 'Menu';
+}
 
-  navPastTrigger.addEventListener('click', ()=>{
-    navPastTrigger.classList.toggle('open');
-    navPastMenu.classList.toggle('open');
-  });
-  document.addEventListener('click', (e)=>{
-    if(!document.getElementById('navPast').contains(e.target)){
-      navPastTrigger.classList.remove('open');
-      navPastMenu.classList.remove('open');
-    }
-  });
-
-  /* ---------- NAV: mobile menu ---------- */
-  const mobileBtn = document.getElementById('mobileBtn');
-  const mobileMenu = document.getElementById('mobileMenu');
-  document.getElementById('mobilePastList').innerHTML =
-    '<div style="display:flex;flex-direction:column;gap:10px;margin-top:6px;">' +
-    PAST_EVENTS.map(e => `<a href="past.html?event=${e.slug}" class="nav-link">${e.label}</a>`).join('') +
-    '</div>';
-
-  mobileBtn.addEventListener('click', ()=>{
-    const open = mobileMenu.classList.toggle('open');
-    mobileBtn.textContent = open ? 'Close' : 'Menu';
-  });
-
-  /* ---------- PAST EVENTS GRID ---------- */
-  const pastGrid = document.getElementById('pastGrid');
-  if(PAST_EVENTS.length === 0){
-    pastGrid.innerHTML = '<div class="empty-note">Δεν υπάρχουν past events ακόμα.</div>';
-  } else {
-    // Use poster as cover if no photos yet, otherwise first photo
-    pastGrid.className = PAST_EVENTS.length === 1 ? 'past-grid-single' : 'past-grid';
-    pastGrid.innerHTML = PAST_EVENTS.map(e=>{
-      const photos = getPhotoUrls(e);
-      const cover = photos.length > 0 ? photos[0] : (e.poster || '');
-      const cardClass = PAST_EVENTS.length === 1 ? 'glass-card past-card-single' : 'glass-card past-card';
-      return `
-        <a href="past.html?event=${e.slug}" class="${cardClass}">
-          <div class="past-card-img"><img src="${cover}" alt="${e.name}" loading="lazy"></div>
-          <div class="past-card-body">
-            <div class="past-card-label">${e.label}</div>
-            <div class="past-card-name">${e.name}</div>
-            <div class="past-card-date">${e.date}</div>
-          </div>
-        </a>`;
-    }).join('');
-  }
+/* ── Past Events grid ── */
+const grid = document.getElementById('pastGrid');
+if(!PAST_EVENTS.length){
+  grid.innerHTML = '<div class="empty-note">Δεν υπάρχουν past events ακόμα.</div>';
+} else {
+  grid.className = 'past-grid' + (PAST_EVENTS.length===1 ? ' single' : '');
+  grid.innerHTML = PAST_EVENTS.map(e => {
+    const photos = getPhotoUrls(e);
+    const cover  = photos[0] || e.poster || '';
+    return `<a href="past.html?event=${e.slug}" class="glass-card past-card">
+      <div class="thumb"><img src="${cover}" alt="${e.name}" loading="lazy"></div>
+      <div class="info">
+        <div class="label">${e.label}</div>
+        <div class="name">${e.name}</div>
+        <div class="date">${e.date}</div>
+      </div>
+    </a>`;
+  }).join('');
+}
 </script>
-
 </body>
 </html>
