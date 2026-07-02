@@ -1,4 +1,4 @@
-/* =========================================================
+/* 
    PARA PERA — events.js
    
    Πώς να προσθέσεις φωτό σε υπάρχον event:
@@ -11,7 +11,7 @@
      1. Φτιάξε φάκελο photos/<slug>/ με φωτό: 01.jpg, 02.jpg...
      2. Πρόσθεσε entry εδώ στο PAST_EVENTS
      3. Ανέβασε στο GitHub
-   ========================================================= */
+    */
 
 const PAST_EVENTS = [
   {
@@ -25,7 +25,7 @@ const PAST_EVENTS = [
     guest:      "Frunk",
     sponsor:    "Moloko",
     poster:     "posters/poster-april.jpg",
-    photoCount: 6,
+    photoCount: 12,
     photoExt:   "jpg",
   },
 ];
