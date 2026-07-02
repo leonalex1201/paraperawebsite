@@ -51,7 +51,10 @@ img   { display:block; max-width:100%; }
   display:flex; align-items:center; justify-content:space-between;
   padding:12px 32px;
 }
-.nav-logo img { height:44px; width:auto; }
+.nav-logo img {
+  height: 32px;
+  width: auto;
+}
 
 .nav-links { display:flex; align-items:center; gap:28px; flex-shrink:0; }
 .nav-link  {
@@ -134,11 +137,11 @@ img   { display:block; max-width:100%; }
 }
 /* New logo has transparency — no clip needed, just glow */
 .hero-logo {
-  width:280px;
+  width:420px;
   filter:drop-shadow(0 0 44px rgba(120,90,200,0.45));
 }
-@media (min-width:640px) { .hero-logo { width:360px; } }
-@media (min-width:768px) { .hero-logo { width:460px; } }
+@media (min-width:640px) { .hero-logo { width:560px; } }
+@media (min-width:768px) { .hero-logo { width:680px; } }
 
 /* ── SECTIONS ────────────────────────────────────────── */
 .section { padding:112px 24px; }
