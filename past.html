@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title id="pgTitle">PARA PERA — Past Event</title>
+<title id="pgTitle">PARA PERA PROJECT</title>
 <meta name="description" id="pgDesc" content="PARA PERA past event.">
 <meta name="theme-color" content="#050505">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,7 +13,7 @@
 </head>
 <body>
 
-<header class="site-nav glass-card" style="border-radius:0; border-left:none; border-right:none; border-top:none;">
+<header class="site-nav glass-card">
   <div class="nav-inner">
     <a href="index.html" class="nav-logo"><img src="logo.png" alt="PARA PERA"></a>
     <a href="index.html" class="back-link">← Back</a>
@@ -34,50 +34,52 @@
 <script src="events.js"></script>
 <script>
 const params = new URLSearchParams(location.search);
-const event  = getEventBySlug(params.get('event'));
+const ev     = getEventBySlug(params.get('event'));
 const box    = document.getElementById('content');
 
-if(!event){
-  box.innerHTML = `<p class="muted">Δεν βρέθηκε αυτό το event.</p>
-    <p style="margin-top:12px"><a href="index.html" class="back-link">← Πίσω</a></p>`;
+if(!ev){
+  box.innerHTML = '<p class="muted">Δεν βρέθηκε αυτό το event.</p><p style="margin-top:12px"><a href="index.html" class="back-link">← Πίσω</a></p>';
 } else {
-  document.getElementById('pgTitle').textContent = `PARA PERA — ${event.label}`;
-  document.getElementById('pgDesc').content = `${event.name} — ${event.date}`;
+  document.getElementById('pgTitle').textContent = 'PARA PERA — ' + ev.label;
 
   const rows = [
-    ['Date',     event.date],
-    event.time   ? ['Time',     event.time]   : null,
-    event.lineup ? ['DJ Lineup',event.lineup] : null,
-    event.guest  ? ['Guest DJ', event.guest]  : null,
-    event.sponsor? ['Sponsor',  event.sponsor]: null,
+    ['Date',     ev.date],
+    ev.time    ? ['Time',     ev.time]    : null,
+    ev.lineup  ? ['DJ Lineup',ev.lineup]  : null,
+    ev.guest   ? ['Guest DJ', ev.guest]   : null,
+    ev.sponsor ? ['Sponsor',  ev.sponsor] : null,
   ].filter(Boolean);
 
-  const photos = getPhotoUrls(event);
+  const photos = getPhotoUrls(ev);
 
   box.innerHTML = `
-    <p class="detail-eyebrow">${event.label}</p>
-    <h1 class="detail-title font-display">${event.name}</h1>
+    <p class="detail-eyebrow">${ev.label}</p>
+    <h1 class="detail-title fd">${ev.name}</h1>
+
+    ${ev.poster ? `
+    <div class="detail-poster-wrap">
+      <div class="detail-poster-glow"></div>
+      <img src="${ev.poster}" alt="${ev.name} poster">
+    </div>` : ''}
+
     <dl class="detail-dl">
       ${rows.map(([l,v])=>`<div class="detail-row"><dt>${l}</dt><dd>${v}</dd></div>`).join('')}
     </dl>
+    <div class="detail-clearfix"></div>
+
     ${photos.length ? `
-      <div class="photo-grid">
-        ${photos.map(src=>`
-          <div class="photo-item" data-src="${src}">
-            <img src="${src}" alt="${event.name}" loading="lazy">
-          </div>`).join('')}
-      </div>` :
-      `<p class="muted">Φωτογραφίες σύντομα.</p>`}
+    <div class="photo-grid">
+      ${photos.map(src=>`<div class="photo-item" data-src="${src}"><img src="${src}" alt="${ev.name}" loading="lazy"></div>`).join('')}
+    </div>` : '<p class="muted" style="margin-top:8px">Φωτογραφίες σύντομα.</p>'}
   `;
 
-  /* lightbox */
   const lb    = document.getElementById('lightbox');
   const lbImg = document.getElementById('lbImg');
-  document.querySelectorAll('.photo-item').forEach(el => {
-    el.addEventListener('click', ()=>{ lbImg.src = el.dataset.src; lb.classList.add('active'); });
+  document.querySelectorAll('.photo-item').forEach(el=>{
+    el.addEventListener('click',()=>{ lbImg.src=el.dataset.src; lb.classList.add('active'); });
   });
-  document.getElementById('lbClose').addEventListener('click', ()=> lb.classList.remove('active'));
-  lb.addEventListener('click', e => { if(e.target===lb) lb.classList.remove('active'); });
+  document.getElementById('lbClose').addEventListener('click',()=>lb.classList.remove('active'));
+  lb.addEventListener('click', e=>{ if(e.target===lb) lb.classList.remove('active'); });
 }
 </script>
 </body>
