@@ -1,17 +1,4 @@
-/* 
-   PARA PERA — events.js
-   
-   Πώς να προσθέσεις φωτό σε υπάρχον event:
-     1. Βάλε τη φωτό στο photos/<slug>/ με το επόμενο νούμερο
-        π.χ. αν έχεις ήδη 06.jpg, βάλε 07.jpg, 08.jpg κλπ
-     2. Άλλαξε το photoCount εδώ στον αντίστοιχο αριθμό
-     3. Ανέβασε στο GitHub
 
-   Πώς να προσθέσεις νέο past event:
-     1. Φτιάξε φάκελο photos/<slug>/ με φωτό: 01.jpg, 02.jpg...
-     2. Πρόσθεσε entry εδώ στο PAST_EVENTS
-     3. Ανέβασε στο GitHub
-    */
 
 const PAST_EVENTS = [
   {
