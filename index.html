@@ -22,7 +22,7 @@
     <a href="#home" class="nav-logo"><img src="logo.png" alt="PARA PERA"></a>
     <nav class="nav-links">
       <a href="#home" class="nav-link">Home</a>
-      <a href="#next" class="nav-link">Next</a>
+      <a href="#next" class="nav-link">Last</a>
       <div class="nav-past" id="navPast">
         <button class="nav-past-trigger" id="navPastTrigger">Past <span class="chev">›</span></button>
         <div class="glass-card nav-past-menu" id="navPastMenu"></div>
@@ -33,7 +33,7 @@
   </div>
   <div class="glass-card nav-mobile-menu" id="mobileMenu">
     <a href="#home"         class="nav-link" onclick="closeMobile()">Home</a>
-    <a href="#next"         class="nav-link" onclick="closeMobile()">Next</a>
+    <a href="#next"         class="nav-link" onclick="closeMobile()">Last</a>
     <div id="mobilePastList"></div>
     <a href="#partners" class="nav-link" onclick="closeMobile()">Partners</a>
   </div>
@@ -73,7 +73,6 @@
             <div class="event-row"><dt>On Deck</dt> <dd id="nOnDeck"></dd></div>
             <div class="event-row"><dt>Sponsor</dt> <dd id="nSponsor"></dd></div>
           </dl>
-          
         </div>
       </div>
     </div>
@@ -175,15 +174,6 @@ if(N.venueUrl) {
 } else {
   venueEl.textContent = N.venue || '';
 }
-
-function tick(){
-  const d = Math.max(0, new Date(N.iso) - Date.now());
-  document.getElementById('cdD').textContent = String(Math.floor(d/864e5)).padStart(2,'0');
-  document.getElementById('cdH').textContent = String(Math.floor(d/36e5)%24).padStart(2,'0');
-  document.getElementById('cdM').textContent = String(Math.floor(d/6e4)%60).padStart(2,'0');
-  document.getElementById('cdS').textContent = String(Math.floor(d/1e3)%60).padStart(2,'0');
-}
-tick(); setInterval(tick,1000);
 
 /* Nav past dropdown */
 const trigger = document.getElementById('navPastTrigger');

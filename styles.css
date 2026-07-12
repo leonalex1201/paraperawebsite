@@ -201,16 +201,6 @@ img   { display:block; max-width:100%; }
 }
 .venue-link:hover { color:var(--accent-pink); border-color:var(--accent-pink); }
 
-.countdown { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; }
-@media (min-width:400px) { .countdown { gap:14px; } }
-.cd-unit  {
-  display:flex; flex-direction:column; align-items:center;
-  background:var(--surface); border:1px solid var(--border);
-  backdrop-filter:blur(8px); border-radius:14px; padding:20px 8px;
-}
-.cd-num   { font-family:var(--font-d); font-weight:300; font-size:clamp(26px,3.5vw,40px); font-variant-numeric:tabular-nums; }
-.cd-label { margin-top:6px; font-size:9px; font-weight:400; letter-spacing:0.25em; text-transform:uppercase; color:var(--muted-fg); }
-
 /* ── PAST EVENTS ─────────────────────────────────────── */
 .past-grid { margin-top:56px; display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:20px; }
 .past-grid.single { justify-content:center; }
