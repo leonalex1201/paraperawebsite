@@ -8,10 +8,28 @@
 <meta property="og:title" content="PARA PERA PROJECT">
 <meta property="og:description" content="Underground luxury nightclub events. Neon nights, unforgettable memories.">
 <meta property="og:type" content="website">
-<meta name="theme-color" content="#050505">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#07060a">
+
+<!-- CRITICAL: Instant Dark Paint prevents white flash before CSS loads -->
+<style>
+  :root, html, body {
+    background-color: #07060a !important;
+    color: #f7f6f9;
+    margin: 0;
+    padding: 0;
+  }
+  .hero, .hero-video {
+    background-color: #07060a;
+  }
+</style>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600&family=Inter:wght@300;400;500&display=swap" media="print" onload="this.media='all'">
+<noscript>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600&family=Inter:wght@300;400;500&display=swap">
+</noscript>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -22,18 +40,18 @@
     <a href="#home" class="nav-logo"><img src="logo.png" alt="PARA PERA"></a>
     <nav class="nav-links">
       <a href="#home" class="nav-link">Home</a>
-      <a href="#next" class="nav-link">Last</a>
+      <a href="#next" class="nav-link">Last Event</a>
       <div class="nav-past" id="navPast">
-        <button class="nav-past-trigger" id="navPastTrigger">Past <span class="chev">›</span></button>
+        <button class="nav-past-trigger" id="navPastTrigger" type="button">Past <span class="chev">›</span></button>
         <div class="glass-card nav-past-menu" id="navPastMenu"></div>
       </div>
       <a href="#partners" class="nav-link">Partners</a>
     </nav>
-    <button class="nav-mobile-btn" id="mobileBtn">Menu</button>
+    <button class="nav-mobile-btn" id="mobileBtn" type="button">Menu</button>
   </div>
   <div class="glass-card nav-mobile-menu" id="mobileMenu">
-    <a href="#home"         class="nav-link" onclick="closeMobile()">Home</a>
-    <a href="#next"         class="nav-link" onclick="closeMobile()">Last</a>
+    <a href="#home" class="nav-link" onclick="closeMobile()">Home</a>
+    <a href="#next" class="nav-link" onclick="closeMobile()">Last Event</a>
     <div id="mobilePastList"></div>
     <a href="#partners" class="nav-link" onclick="closeMobile()">Partners</a>
   </div>
@@ -48,11 +66,15 @@
   </video>
   <div class="hero-fade"></div>
   <div class="hero-inner">
-    <img src="logo.png" alt="PARA PERA" class="hero-logo float">
+    <img src="logo.png" alt="PARA PERA" class="hero-logo float" width="680" height="453">
   </div>
+  <a href="#next" class="hero-scroll-indicator" aria-label="Scroll down to events">
+    <span>EXPLORE</span>
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 13l5 5 5-5M7 6l5 5 5-5"/></svg>
+  </a>
 </section>
 
-<!-- NEXT EVENT -->
+<!-- LAST / NEXT EVENT -->
 <section class="section" id="next">
   <div class="section-inner">
     <h2 class="section-title fd">Last Event</h2>
@@ -60,19 +82,20 @@
       <div class="event-grid">
         <div class="poster-wrap">
           <div class="poster-glow"></div>
-          <img id="nPoster" src="" alt="Event poster">
+          <img id="nPoster" src="posters/poster-july.jpg" alt="Event poster" loading="eager" decoding="async">
         </div>
         <div class="event-info">
-          <p  id="nTagline" class="event-eyebrow"></p>
-          <h3 id="nName"    class="event-title fd"></h3>
+          <p  id="nTagline" class="event-eyebrow">One Last World Cup</p>
+          <h3 id="nName"    class="event-title fd">PROJECT PARA PERA</h3>
           <dl class="event-dl">
-            <div class="event-row"><dt>Date</dt>    <dd id="nDate"></dd></div>
-            <div class="event-row"><dt>Time</dt>    <dd id="nTime"></dd></div>
-            <div class="event-row"><dt>Venue</dt>   <dd id="nVenue"></dd></div>
-            <div class="event-row"><dt>Address</dt> <dd id="nAddress"></dd></div>
-            <div class="event-row"><dt>On Deck</dt> <dd id="nOnDeck"></dd></div>
-            <div class="event-row"><dt>Sponsor</dt> <dd id="nSponsor"></dd></div>
+            <div class="event-row"><dt>Date</dt>    <dd id="nDate">11 July 2026</dd></div>
+            <div class="event-row"><dt>Time</dt>    <dd id="nTime">23:00</dd></div>
+            <div class="event-row"><dt>Venue</dt>   <dd id="nVenue"><a href="https://maps.app.goo.gl/1PA3sMuLdSoFbnFW6" target="_blank" rel="noopener" class="venue-link">Dunk Bar ↗</a></dd></div>
+            <div class="event-row"><dt>Address</dt> <dd id="nAddress">Πανόρμου & Αλέξη Παύλη 13Β</dd></div>
+            <div class="event-row"><dt>On Deck</dt> <dd id="nOnDeck">Spaz · Frunk · Staz</dd></div>
+            <div class="event-row"><dt>Sponsor</dt> <dd id="nSponsor">Moloko</dd></div>
           </dl>
+
         </div>
       </div>
     </div>
@@ -131,7 +154,7 @@
         </div>
       </div>
 
-
+    </div>
   </div>
 </section>
 
@@ -147,74 +170,88 @@
   </div>
 </footer>
 
-<div class="lightbox" id="lightbox">
-  <span class="lightbox-close" id="lbClose">&times;</span>
-  <img id="lbImg" src="" alt="">
-</div>
-
 <script src="events.js"></script>
 <script>
 document.getElementById('yr').textContent = new Date().getFullYear();
 
-/* Next event */
-const N = NEXT_EVENT;
-document.getElementById('nPoster').src      = N.poster;
-document.getElementById('nTagline').textContent = N.tagline;
-document.getElementById('nName').textContent    = N.name;
-document.getElementById('nDate').textContent    = N.date;
-document.getElementById('nTime').textContent    = N.time;
-document.getElementById('nOnDeck').textContent  = N.onDeck.join(' · ');
-document.getElementById('nSponsor').textContent = N.sponsor;
-document.getElementById('nAddress').textContent = N.address || '';
+/* Next / Last event */
+if (typeof NEXT_EVENT !== 'undefined') {
+  const N = NEXT_EVENT;
+  const nPoster = document.getElementById('nPoster');
+  if (N.poster) nPoster.src = N.poster;
+  if (N.tagline) document.getElementById('nTagline').textContent = N.tagline;
+  if (N.name) document.getElementById('nName').textContent = N.name;
+  if (N.date) document.getElementById('nDate').textContent = N.date;
+  if (N.time) document.getElementById('nTime').textContent = N.time;
+  if (N.onDeck) document.getElementById('nOnDeck').textContent = Array.isArray(N.onDeck) ? N.onDeck.join(' · ') : N.onDeck;
+  if (N.sponsor) document.getElementById('nSponsor').textContent = N.sponsor;
+  if (N.address) document.getElementById('nAddress').textContent = N.address;
 
-/* Venue as clickable link */
-const venueEl = document.getElementById('nVenue');
-if(N.venueUrl) {
-  venueEl.innerHTML = `<a href="${N.venueUrl}" target="_blank" rel="noopener" class="venue-link">${N.venue}</a>`;
-} else {
-  venueEl.textContent = N.venue || '';
+  /* Venue as clickable link */
+  const venueEl = document.getElementById('nVenue');
+  if (N.venueUrl) {
+    venueEl.innerHTML = `<a href="${N.venueUrl}" target="_blank" rel="noopener" class="venue-link">${N.venue || 'Google Maps'} ↗</a>`;
+  } else if (N.venue) {
+    venueEl.textContent = N.venue;
+  }
 }
 
 /* Nav past dropdown */
 const trigger = document.getElementById('navPastTrigger');
 const menu    = document.getElementById('navPastMenu');
-menu.innerHTML = PAST_EVENTS.map(e=>`<a href="past.html?event=${e.slug}">${e.label}</a>`).join('');
-trigger.addEventListener('click',()=>{ trigger.classList.toggle('open'); menu.classList.toggle('open'); });
-document.addEventListener('click', e=>{
-  if(!document.getElementById('navPast').contains(e.target)){
-    trigger.classList.remove('open'); menu.classList.remove('open');
+if (typeof PAST_EVENTS !== 'undefined' && Array.isArray(PAST_EVENTS)) {
+  menu.innerHTML = PAST_EVENTS.map(e => `<a href="past.html?event=${e.slug}">${e.label}</a>`).join('');
+  
+  trigger.addEventListener('click', (e) => {
+    e.stopPropagation();
+    trigger.classList.toggle('open');
+    menu.classList.toggle('open');
+  });
+  
+  document.addEventListener('click', (e) => {
+    if (!document.getElementById('navPast').contains(e.target)) {
+      trigger.classList.remove('open');
+      menu.classList.remove('open');
+    }
+  });
+
+  /* Mobile nav */
+  const mBtn  = document.getElementById('mobileBtn');
+  const mMenu = document.getElementById('mobileMenu');
+  document.getElementById('mobilePastList').innerHTML =
+    '<div style="display:flex;flex-direction:column;gap:10px;margin-top:6px;">' +
+    PAST_EVENTS.map(e => `<a href="past.html?event=${e.slug}" class="nav-link" onclick="closeMobile()">${e.label}</a>`).join('') + '</div>';
+  
+  mBtn.addEventListener('click', () => {
+    const o = mMenu.classList.toggle('open');
+    mBtn.textContent = o ? 'Close' : 'Menu';
+  });
+
+  /* Past grid */
+  const grid = document.getElementById('pastGrid');
+  if (!PAST_EVENTS.length) {
+    grid.innerHTML = '<div class="empty-note">Δεν υπάρχουν past events ακόμα.</div>';
+  } else {
+    grid.className = 'past-grid' + (PAST_EVENTS.length === 1 ? ' single' : '');
+    grid.innerHTML = PAST_EVENTS.map(e => {
+      const cover = e.poster || (typeof getPhotoUrls === 'function' ? getPhotoUrls(e)[0] : '') || '';
+      return `<a href="past.html?event=${e.slug}" class="glass-card past-card">
+        <div class="thumb"><img src="${cover}" alt="${e.name}" loading="lazy" decoding="async"></div>
+        <div class="info">
+          <div class="lbl">${e.label}</div>
+          <div class="name">${e.name}</div>
+          <div class="date">${e.date}</div>
+        </div>
+      </a>`;
+    }).join('');
   }
-});
+}
 
-/* Mobile nav */
-const mBtn  = document.getElementById('mobileBtn');
-const mMenu = document.getElementById('mobileMenu');
-document.getElementById('mobilePastList').innerHTML =
-  '<div style="display:flex;flex-direction:column;gap:10px;margin-top:6px;">' +
-  PAST_EVENTS.map(e=>`<a href="past.html?event=${e.slug}" class="nav-link">${e.label}</a>`).join('') + '</div>';
-mBtn.addEventListener('click',()=>{
-  const o = mMenu.classList.toggle('open');
-  mBtn.textContent = o ? 'Close' : 'Menu';
-});
-function closeMobile(){ mMenu.classList.remove('open'); mBtn.textContent='Menu'; }
-
-/* Past grid — poster as cover */
-const grid = document.getElementById('pastGrid');
-if(!PAST_EVENTS.length){
-  grid.innerHTML = '<div class="empty-note">Δεν υπάρχουν past events ακόμα.</div>';
-} else {
-  grid.className = 'past-grid' + (PAST_EVENTS.length===1 ? ' single' : '');
-  grid.innerHTML = PAST_EVENTS.map(e => {
-    const cover = e.poster || (getPhotoUrls(e)[0] || '');
-    return `<a href="past.html?event=${e.slug}" class="glass-card past-card">
-      <div class="thumb"><img src="${cover}" alt="${e.name}" loading="lazy"></div>
-      <div class="info">
-        <div class="lbl">${e.label}</div>
-        <div class="name">${e.name}</div>
-        <div class="date">${e.date}</div>
-      </div>
-    </a>`;
-  }).join('');
+function closeMobile() {
+  const mMenu = document.getElementById('mobileMenu');
+  const mBtn  = document.getElementById('mobileBtn');
+  if (mMenu) mMenu.classList.remove('open');
+  if (mBtn) mBtn.textContent = 'Menu';
 }
 </script>
 </body>

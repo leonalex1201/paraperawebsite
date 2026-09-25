@@ -5,10 +5,25 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title id="pgTitle">PARA PERA PROJECT</title>
 <meta name="description" id="pgDesc" content="PARA PERA past event.">
-<meta name="theme-color" content="#050505">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#07060a">
+
+<!-- CRITICAL: Instant Dark Paint prevents white flash before CSS loads -->
+<style>
+  :root, html, body {
+    background-color: #07060a !important;
+    color: #f7f6f9;
+    margin: 0;
+    padding: 0;
+  }
+</style>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600&family=Inter:wght@300;400;500&display=swap" media="print" onload="this.media='all'">
+<noscript>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600&family=Inter:wght@300;400;500&display=swap">
+</noscript>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -16,41 +31,85 @@
 <header class="site-nav glass-card">
   <div class="nav-inner">
     <a href="index.html" class="nav-logo"><img src="logo.png" alt="PARA PERA"></a>
-    <a href="index.html" class="back-link">← Back</a>
+    <a href="index.html" class="back-link">← Αρχική</a>
   </div>
 </header>
 
-<main class="section" style="padding-top:140px;">
-  <div class="section-inner" style="max-width:1024px;">
+<main class="section" style="padding-top:130px; padding-bottom:80px;">
+  <div class="section-inner" style="max-width:1080px;">
     <div class="glass-card detail-card" id="content"></div>
   </div>
 </main>
 
-<div class="lightbox" id="lightbox">
-  <span class="lightbox-close" id="lbClose">&times;</span>
-  <img id="lbImg" src="" alt="">
+<!-- UPGRADED LIGHTBOX GALLERY -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo Lightbox">
+  <div class="lightbox-topbar">
+    <span class="lightbox-counter" id="lbCounter">1 / 1</span>
+    <button class="lightbox-close" id="lbClose" aria-label="Close" type="button">&times;</button>
+  </div>
+  <button class="lightbox-nav-btn lb-prev" id="lbPrev" aria-label="Previous photo" type="button">&#8249;</button>
+  <div class="lightbox-img-wrap">
+    <img id="lbImg" src="" alt="Party photo">
+  </div>
+  <button class="lightbox-nav-btn lb-next" id="lbNext" aria-label="Next photo" type="button">&#8250;</button>
 </div>
 
 <script src="events.js"></script>
 <script>
 const params = new URLSearchParams(location.search);
-const ev     = getEventBySlug(params.get('event'));
+const evSlug = params.get('event') || (typeof PAST_EVENTS !== 'undefined' && PAST_EVENTS[0] ? PAST_EVENTS[0].slug : null);
+const ev     = typeof getEventBySlug === 'function' ? getEventBySlug(evSlug) : null;
 const box    = document.getElementById('content');
 
-if(!ev){
-  box.innerHTML = '<p class="muted">Δεν βρέθηκε αυτό το event.</p><p style="margin-top:12px"><a href="index.html" class="back-link">← Πίσω</a></p>';
+/**
+ * Αυτόματο Fallback: αν μια φωτογραφία είναι .jpeg αντί για .jpg
+ * (ή το αντίστροφο), το δοκιμάζει αυτόματα χωρίς σφάλμα!
+ */
+function handleImageFallback(img) {
+  const exts = ['.jpg', '.jpeg', '.JPG', '.JPEG', '.png', '.PNG'];
+  let currentExt = '';
+  for (const e of exts) {
+    if (img.src.endsWith(e)) {
+      currentExt = e;
+      break;
+    }
+  }
+  if (!currentExt) return;
+  
+  let tried = [];
+  try {
+    tried = JSON.parse(img.dataset.tried || '[]');
+  } catch(e) {}
+  tried.push(currentExt);
+  img.dataset.tried = JSON.stringify(tried);
+
+  const nextExt = exts.find(e => !tried.includes(e));
+  if (nextExt) {
+    const newSrc = img.src.slice(0, -currentExt.length) + nextExt;
+    img.src = newSrc;
+    const parent = img.closest('.photo-item');
+    if (parent) {
+      parent.dataset.src = newSrc;
+    }
+  }
+}
+
+if (!ev) {
+  box.innerHTML = '<p class="muted">Δεν βρέθηκε αυτό το event.</p><p style="margin-top:16px"><a href="index.html" class="back-link">← Επιστροφή στην Αρχική</a></p>';
 } else {
   document.getElementById('pgTitle').textContent = 'PARA PERA — ' + ev.label;
 
   const rows = [
-    ['Date',     ev.date],
-    ev.time    ? ['Time',     ev.time]    : null,
-    ev.lineup  ? ['DJ Lineup',ev.lineup]  : null,
-    ev.guest   ? ['Guest DJ', ev.guest]   : null,
-    ev.sponsor ? ['Sponsor',  ev.sponsor] : null,
+    ['Date',      ev.date],
+    ev.time     ? ['Time',      ev.time]     : null,
+    ev.venue    ? ['Venue',     ev.venueUrl ? `<a href="${ev.venueUrl}" target="_blank" rel="noopener" class="venue-link">${ev.venue} ↗</a>` : ev.venue] : null,
+    ev.address  ? ['Address',   ev.address]  : null,
+    ev.lineup   ? ['DJ Lineup', ev.lineup]   : null,
+    ev.guest    ? ['Guest DJ',  ev.guest]    : null,
+    ev.sponsor  ? ['Sponsor',   ev.sponsor]  : null,
   ].filter(Boolean);
 
-  const photos = getPhotoUrls(ev);
+  const photos = typeof getPhotoUrls === 'function' ? getPhotoUrls(ev) : [];
 
   box.innerHTML = `
     <p class="detail-eyebrow">${ev.label}</p>
@@ -59,27 +118,98 @@ if(!ev){
     ${ev.poster ? `
     <div class="detail-poster-wrap">
       <div class="detail-poster-glow"></div>
-      <img src="${ev.poster}" alt="${ev.name} poster">
+      <img src="${ev.poster}" alt="${ev.name} poster" loading="eager" decoding="async">
     </div>` : ''}
 
     <dl class="detail-dl">
-      ${rows.map(([l,v])=>`<div class="detail-row"><dt>${l}</dt><dd>${v}</dd></div>`).join('')}
+      ${rows.map(([l,v]) => `<div class="detail-row"><dt>${l}</dt><dd>${v}</dd></div>`).join('')}
     </dl>
     <div class="detail-clearfix"></div>
 
+    <div class="gallery-header">
+      <h2 class="gallery-title">Photo Gallery</h2>
+      <span class="gallery-count">${photos.length ? photos.length + ' ΦΩΤΟΓΡΑΦΙΕΣ' : ''}</span>
+    </div>
+
     ${photos.length ? `
     <div class="photo-grid">
-      ${photos.map(src=>`<div class="photo-item" data-src="${src}"><img src="${src}" alt="${ev.name}" loading="lazy"></div>`).join('')}
-    </div>` : '<p class="muted" style="margin-top:8px">Φωτογραφίες σύντομα.</p>'}
+      ${photos.map((src, idx) => `
+        <div class="photo-item" data-src="${src}" data-index="${idx}">
+          <img src="${src}" alt="${ev.name} photo ${idx + 1}" loading="lazy" decoding="async" onerror="handleImageFallback(this)">
+        </div>
+      `).join('')}
+    </div>` : '<p class="muted" style="margin-top:12px; font-size:15px;">Φωτογραφίες σύντομα.</p>'}
   `;
 
-  const lb    = document.getElementById('lightbox');
-  const lbImg = document.getElementById('lbImg');
-  document.querySelectorAll('.photo-item').forEach(el=>{
-    el.addEventListener('click',()=>{ lbImg.src=el.dataset.src; lb.classList.add('active'); });
+  /* Lightbox Logic with Next / Prev / Counter / Keyboard / Swipe */
+  const lb        = document.getElementById('lightbox');
+  const lbImg     = document.getElementById('lbImg');
+  const lbCounter = document.getElementById('lbCounter');
+  const lbClose   = document.getElementById('lbClose');
+  const lbPrev    = document.getElementById('lbPrev');
+  const lbNext    = document.getElementById('lbNext');
+
+  let activePhotoList = [];
+  let currentIndex = 0;
+
+  function refreshPhotoList() {
+    activePhotoList = Array.from(document.querySelectorAll('.photo-item')).map(item => item.dataset.src || item.querySelector('img').src);
+  }
+
+  function showPhoto(idx) {
+    refreshPhotoList();
+    if (!activePhotoList.length) return;
+    
+    if (idx < 0) idx = activePhotoList.length - 1;
+    if (idx >= activePhotoList.length) idx = 0;
+    currentIndex = idx;
+
+    lbImg.src = activePhotoList[currentIndex];
+    lbCounter.textContent = `${currentIndex + 1} / ${activePhotoList.length}`;
+    lb.classList.add('active');
+  }
+
+  function nextPhoto() { showPhoto(currentIndex + 1); }
+  function prevPhoto() { showPhoto(currentIndex - 1); }
+  function closeLightbox() { lb.classList.remove('active'); }
+
+  document.querySelectorAll('.photo-item').forEach(el => {
+    el.addEventListener('click', () => {
+      const idx = parseInt(el.dataset.index, 10) || 0;
+      showPhoto(idx);
+    });
   });
-  document.getElementById('lbClose').addEventListener('click',()=>lb.classList.remove('active'));
-  lb.addEventListener('click', e=>{ if(e.target===lb) lb.classList.remove('active'); });
+
+  lbClose.addEventListener('click', closeLightbox);
+  lbNext.addEventListener('click', (e) => { e.stopPropagation(); nextPhoto(); });
+  lbPrev.addEventListener('click', (e) => { e.stopPropagation(); prevPhoto(); });
+
+  lb.addEventListener('click', (e) => {
+    if (e.target === lb || e.target.classList.contains('lightbox-img-wrap')) {
+      closeLightbox();
+    }
+  });
+
+  /* Keyboard Navigation */
+  document.addEventListener('keydown', (e) => {
+    if (!lb.classList.contains('active')) return;
+    if (e.key === 'ArrowRight') nextPhoto();
+    if (e.key === 'ArrowLeft')  prevPhoto();
+    if (e.key === 'Escape')     closeLightbox();
+  });
+
+  /* Touch Swipe on Mobile */
+  let touchStartX = 0;
+  lb.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+  }, { passive: true });
+
+  lb.addEventListener('touchend', (e) => {
+    const touchEndX = e.changedTouches[0].screenX;
+    const diff = touchEndX - touchStartX;
+    if (diff > 50)  prevPhoto();
+    if (diff < -50) nextPhoto();
+  }, { passive: true });
 }
 </script>
 </body>
